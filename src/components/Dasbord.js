@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Modal, Alert } from "react-bootstrap";
 import "./components.css";
-import dataBase from "../database";
+import dataMenu from "../datamenu";
 
 //   menu makanan
 
@@ -120,16 +120,24 @@ export default function Dasbord() {
   }
 
   useEffect(() => {
+    // Memilih elemen dengan class "tittle-produk"
     const titleProduk = document.querySelector(".tittle-produk");
+
+    // Memilih elemen dengan class "list-categori"
     const menuCategori = document.querySelector(".list-categori");
 
+    // Mendefinisikan fungsi yang akan dipanggil saat elemen diklik
     function handleClick() {
+      // Mengganti keberadaan class "list-produk" pada elemen menuCategori
       menuCategori.classList.toggle("list-produk");
     }
 
+    // Menambahkan event listener klik pada elemen titleProduk
     titleProduk.addEventListener("click", handleClick);
 
+    // Mengembalikan fungsi cleanup yang akan dipanggil saat komponen di-unmount
     return () => {
+      // Menghapus event listener klik pada elemen titleProduk
       titleProduk.removeEventListener("click", handleClick);
     };
   }, []);
@@ -213,7 +221,7 @@ export default function Dasbord() {
             >
               {/* food lunch */}
               {menuType === "food" &&
-                dataBase.foodLunch.map((food) => {
+                dataMenu.foodLunch.map((food) => {
                   return (
                     <Card
                       className="d-flex card-menu"
@@ -250,7 +258,7 @@ export default function Dasbord() {
 
               {/* Drink lunch */}
               {menuType === "drink" &&
-                dataBase.drinkLunch.map((drink) => {
+                dataMenu.drinkLunch.map((drink) => {
                   return (
                     <Card
                       className="d-flex card-menu"
@@ -287,7 +295,7 @@ export default function Dasbord() {
 
               {/* Snack lunch */}
               {menuType === "snack" &&
-                dataBase.snackLunch.map((snack) => {
+                dataMenu.snackLunch.map((snack) => {
                   return (
                     <Card
                       className="d-flex card-menu"
