@@ -28,8 +28,11 @@ export default function Navigation() {
               <Nav.Link href="#features" className="text-white">
                 Features
               </Nav.Link>
-              <Nav.Link href="#pricing" className="text-white">
-                Pricing
+              <Nav.Link
+                href="https://github.com/goncang1512"
+                className="text-white"
+              >
+                Open Source
               </Nav.Link>
             </Nav>
           </Col>
