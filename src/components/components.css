@@ -1,0 +1,33 @@
+/* Dasbord css */
+
+.list-group li a:hover {
+  background-color: rgba(44, 44, 44, 0.593);
+}
+
+.list-group li a {
+  border-radius: 5px;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.hr-left {
+  background-color: black;
+  color: black;
+  position: relative;
+  width: 90%;
+  height: 1px;
+  margin-bottom: 20px;
+}
+
+.card-menu:hover {
+  background-color: rgba(0, 0, 0, 0.173);
+}
+
+.card-menu:hover .img-card {
+  transform: scale(1.2);
+}
+
+.bg-danger:hover {
+  transform: scale(1.2);
+}
