@@ -8,10 +8,6 @@ body {
   overflow-x: hidden;
 }
 
-html {
-  overflow: scroll;
-}
-
 .App {
   text-align: center;
 }
