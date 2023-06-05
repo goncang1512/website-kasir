@@ -119,6 +119,21 @@ export default function Dasbord() {
     );
   }
 
+  useEffect(() => {
+    const titleProduk = document.querySelector(".tittle-produk");
+    const menuCategori = document.querySelector(".list-categori");
+
+    function handleClick() {
+      menuCategori.classList.toggle("list-produk");
+    }
+
+    titleProduk.addEventListener("click", handleClick);
+
+    return () => {
+      titleProduk.removeEventListener("click", handleClick);
+    };
+  }, []);
+
   return (
     <div>
       <Container fluid style={{ backgroundColor: "White", color: "white" }}>
@@ -131,7 +146,18 @@ export default function Dasbord() {
             className="d-flex"
             style={dasbordStyle.columnLeft}
           >
-            <h1 style={{ fontSize: "25px", color: "black" }}>Kategori Menu</h1>
+            <button href="" className="tittle-produk">
+              <h1 style={{ fontSize: "25px", color: "black" }}>
+                Kategori Menu
+              </h1>
+            </button>
+            <h1
+              className="judul-categori"
+              style={{ fontSize: "25px", color: "black" }}
+            >
+              Kategori Menu
+            </h1>
+
             <hr className="hr-left" />
             <Card
               style={{
@@ -141,7 +167,7 @@ export default function Dasbord() {
               }}
             >
               <ul
-                className="list-group"
+                className="list-group list-categori"
                 style={{ listStyle: "none", gap: "20px" }}
               >
                 <li>
@@ -174,7 +200,7 @@ export default function Dasbord() {
             >
               Daftar Menu
             </h1>
-            <hr className="hr-left" />
+            <hr className="hr-left" style={{ marginLeft: "40px" }} />
             <Row
               className="d-flex"
               style={{

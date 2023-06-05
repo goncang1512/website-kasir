@@ -31,3 +31,38 @@
 .bg-danger:hover {
   transform: scale(1.2);
 }
+
+.tittle-produk {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  .tittle-produk {
+    display: flex;
+    border: none;
+    background: none;
+    padding: 5px 15px;
+    border-radius: 10px;
+  }
+
+  .tittle-produk:hover {
+    background-color: rgba(0, 0, 0, 0.107);
+  }
+
+  .judul-categori {
+    display: none;
+  }
+
+  .list-categori {
+    display: none;
+    transition: 10s all ease;
+  }
+
+  .list-produk {
+    display: flex;
+  }
+
+  .hr-left {
+    display: none;
+  }
+}
