@@ -1,5 +1,6 @@
 import React from "react";
 import { Navbar, Container, Col, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default function Navigation() {
   const bgNavbar = {
@@ -22,15 +23,22 @@ export default function Navigation() {
               className="text-white d-flex"
               style={{ justifyContent: "center", alignItems: "center" }}
             >
-              <Nav.Link href="#home" className="text-white">
+              <Nav.Link as={Link} to="/" className="btn btn-success text-white">
                 Home
               </Nav.Link>
-              <Nav.Link href="#features" className="text-white">
+              <Nav.Link
+                as={Link}
+                to="/menulist"
+                className="btn btn-success text-white"
+              >
+                Menu
+              </Nav.Link>
+              <Nav.Link className="btn btn-success text-white">
                 Features
               </Nav.Link>
               <Nav.Link
                 href="https://github.com/goncang1512"
-                className="text-white"
+                className="btn btn-success text-white"
               >
                 Open Source
               </Nav.Link>

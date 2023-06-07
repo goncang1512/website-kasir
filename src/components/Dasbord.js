@@ -145,7 +145,7 @@ export default function Dasbord() {
   return (
     <div>
       <Container fluid style={{ backgroundColor: "White", color: "white" }}>
-        <Row className="d-flex" style={{}}>
+        <Row className="d-flex">
           {/* colum left */}
           <Col
             xs={12}

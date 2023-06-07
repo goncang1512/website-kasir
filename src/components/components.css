@@ -28,10 +28,6 @@
   transform: scale(1.2);
 }
 
-.bg-danger:hover {
-  transform: scale(1.2);
-}
-
 .tittle-produk {
   display: none;
 }
@@ -65,4 +61,26 @@
   .hr-left {
     display: none;
   }
+
+  .arrow-carousel {
+    display: none;
+  }
 }
+
+@media screen and (min-width: 1024px) {
+  .caraousel-container {
+    width: 100vw;
+    height: 100vh;
+  }
+}
+
+/* Landing Page */
+.carousel-indicators {
+  transition: 0.5 all ease;
+}
+
+.carousel-indicators .active {
+  width: 60px;
+}
+
+/* slick */
