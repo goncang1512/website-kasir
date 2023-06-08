@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Card, Modal, Alert } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Modal,
+  Alert,
+  Button,
+} from "react-bootstrap";
 import "./components.css";
 import dataMenu from "../datamenu";
-
-//   menu makanan
 
 export default function Dasbord() {
   // style css
@@ -31,10 +37,33 @@ export default function Dasbord() {
       flexDirection: "column",
       paddingTop: "33px",
     },
+    imgMenu: {
+      width: "100%",
+      objectFit: "contain",
+      top: "0",
+      left: "0",
+      position: "absolute",
+      transition: "0.5s all ease",
+      marginTop: "47px",
+      cursor: "pointer",
+    },
+    bodyName: {
+      backgroundColor: "#11A662",
+      width: "100%",
+      position: "absolute",
+      left: "0",
+      top: "0",
+      height: "50px",
+      zIndex: "2",
+      color: "white",
+      fontSize: "20px",
+      display: "flex",
+      alignItems: "center",
+    },
   };
 
-  // halal
-  const [menuType, setMenuType] = useState("food"); // state untuk menentukan jenis menu yang ditampilkan
+  // halaman awal pada menu categori
+  const [menuType, setMenuType] = useState("appetizer"); // state untuk menentukan jenis menu yang ditampilkan
 
   // Fungsi untuk mengubah jenis menu
   const tekanMenuType = (type) => {
@@ -142,6 +171,63 @@ export default function Dasbord() {
     };
   }, []);
 
+  const [showDetail, setShowDetail] = useState(false);
+  const [selectMenuId, setSelectMenuId] = useState(null);
+
+  function detailItem(itemId) {
+    let selectedItem = null;
+
+    if (menuType) {
+      selectedItem = menuData[menuType].find((item) => item.id === itemId);
+    }
+
+    return (
+      <Modal
+        show={showDetail && selectMenuId === itemId}
+        onHide={() => setShowDetail(false)}
+        className="modal-alert"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>{selectedItem.name}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Rp. {selectedItem.harga}
+          <Modal.Footer>
+            <input
+              className="input-pesanan"
+              type="text"
+              placeholder="masukkan pesan"
+              style={{
+                padding: "5px 10px",
+                borderRadius: "6px",
+                border: "1px solid #007bff",
+                outline: "none",
+              }}
+            />
+
+            <Button
+              onClick={() => setShowDetail(false)}
+              className="button-pesanan"
+              type="submit"
+            >
+              Submit
+            </Button>
+          </Modal.Footer>
+        </Modal.Body>
+      </Modal>
+    );
+  }
+
+  /* menu type */
+  const menuData = {
+    appetizer: dataMenu.appetizerFood,
+    main: dataMenu.mainCourse,
+    sea: dataMenu.seaFood,
+    dessert: dataMenu.dessertFood,
+    fast: dataMenu.fastFood,
+  };
+
   return (
     <div>
       <Container fluid style={{ backgroundColor: "White", color: "white" }}>
@@ -179,18 +265,31 @@ export default function Dasbord() {
                 style={{ listStyle: "none", gap: "20px" }}
               >
                 <li>
-                  <a href="#food" onClick={() => tekanMenuType("food")}>
-                    Makanan
+                  <a
+                    href="#appetizer"
+                    onClick={() => tekanMenuType("appetizer")}
+                  >
+                    Appetizer
                   </a>
                 </li>
                 <li>
-                  <a href="#drink" onClick={() => tekanMenuType("drink")}>
-                    Minuman
+                  <a href="#main" onClick={() => tekanMenuType("main")}>
+                    Main Course
                   </a>
                 </li>
                 <li>
-                  <a href="#snack" onClick={() => tekanMenuType("snack")}>
-                    Snack
+                  <a href="#sea" onClick={() => tekanMenuType("sea")}>
+                    Seafood
+                  </a>
+                </li>
+                <li>
+                  <a href="#dessert" onClick={() => tekanMenuType("dessert")}>
+                    Dessert
+                  </a>
+                </li>
+                <li>
+                  <a href="#drink" onClick={() => tekanMenuType("fast")}>
+                    Fast Food
                   </a>
                 </li>
               </ul>
@@ -219,116 +318,53 @@ export default function Dasbord() {
                 marginBottom: "30px",
               }}
             >
-              {/* food lunch */}
-              {menuType === "food" &&
-                dataMenu.foodLunch.map((food) => {
-                  return (
-                    <Card
-                      className="d-flex card-menu"
-                      style={{
-                        width: "18rem",
-                        cursor: "pointer",
-                        overflow: "hidden",
-                      }}
-                      onClick={() => tambahPesanan(food)}
-                    >
-                      <Card.Img
-                        className="img-card"
-                        src={food.foto}
-                        style={{
-                          width: "100%",
-                          objectFit: "contain",
-                          top: "0",
-                          left: "0",
-                          position: "absolute",
-                          transition: "0.5s all ease",
-                        }}
-                      />
-                      <Card.Body style={{ paddingTop: "95%" }}>
-                        <Card.Title>
-                          {food.name} {food.kode}
-                        </Card.Title>
-                        <Card.Text>
-                          Rp. {food.harga.toLocaleString()}{" "}
-                        </Card.Text>
-                      </Card.Body>
-                    </Card>
-                  );
-                })}
+              {/*lunch */}
+              {menuData[menuType].map((lunch) => {
+                return (
+                  <Card
+                    className="d-flex card-menu"
+                    style={{
+                      width: "18rem",
+                      overflow: "hidden",
+                      position: "relative",
+                    }}
+                  >
+                    <Card.Body style={dasbordStyle.bodyName}>Kasir</Card.Body>
+                    <Card.Img
+                      className="img-card"
+                      src={lunch.foto}
+                      style={dasbordStyle.imgMenu}
+                    />
+                    <Card.Body style={{ paddingTop: "112%" }}>
+                      <Card.Title>
+                        {lunch.name} {lunch.kode}
+                      </Card.Title>
+                      <Card.Text>Rp. {lunch.harga.toLocaleString()} </Card.Text>
+                      <div className="d-flex">
+                        <button
+                          onClick={() => tambahPesanan(lunch)}
+                          className="button-card-first bg-primary text-white"
+                        >
+                          Tambah
+                        </button>
+                        <button
+                          className="button-card-second text-white"
+                          onClick={() => {
+                            setSelectMenuId(lunch.id);
+                            setShowDetail(true);
+                          }}
+                        >
+                          Detail
+                        </button>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                );
+              })}
 
-              {/* Drink lunch */}
-              {menuType === "drink" &&
-                dataMenu.drinkLunch.map((drink) => {
-                  return (
-                    <Card
-                      className="d-flex card-menu"
-                      style={{
-                        width: "18rem",
-                        cursor: "pointer",
-                        overflow: "hidden",
-                      }}
-                      onClick={() => tambahPesanan(drink)}
-                    >
-                      <Card.Img
-                        className="img-card"
-                        src={drink.foto}
-                        style={{
-                          width: "100%",
-                          objectFit: "contain",
-                          top: "0",
-                          left: "0",
-                          position: "absolute",
-                          transition: "0.5s all ease",
-                        }}
-                      />
-                      <Card.Body style={{ paddingTop: "95%" }}>
-                        <Card.Title>
-                          {drink.name} {drink.kode}
-                        </Card.Title>
-                        <Card.Text>
-                          Rp. {drink.harga.toLocaleString()}
-                        </Card.Text>
-                      </Card.Body>
-                    </Card>
-                  );
-                })}
-
-              {/* Snack lunch */}
-              {menuType === "snack" &&
-                dataMenu.snackLunch.map((snack) => {
-                  return (
-                    <Card
-                      className="d-flex card-menu"
-                      style={{
-                        width: "18rem",
-                        cursor: "pointer",
-                        overflow: "hidden",
-                      }}
-                      onClick={() => tambahPesanan(snack)}
-                    >
-                      <Card.Img
-                        className="img-card"
-                        src={snack.foto}
-                        style={{
-                          width: "100%",
-                          objectFit: "contain",
-                          top: "0",
-                          left: "0",
-                          position: "absolute",
-                          transition: "0.5s all ease",
-                        }}
-                      />
-                      <Card.Body style={{ paddingTop: "95%" }}>
-                        <Card.Title>
-                          {snack.name} {snack.kode}
-                        </Card.Title>
-                        <Card.Text>
-                          Rp. {snack.harga.toLocaleString()}
-                        </Card.Text>
-                      </Card.Body>
-                    </Card>
-                  );
-                })}
+              {menuData[menuType].map((lunch) =>
+                detailItem(lunch.id, menuType)
+              )}
             </Row>
           </Col>
 
@@ -368,6 +404,7 @@ export default function Dasbord() {
                     <Card.Text>
                       Jumlah: {hitungJumlahPesanan(item.id)}
                     </Card.Text>
+                    <p className="pesan-input"></p>
                     <button
                       className="bg-danger"
                       onClick={() => hapusPesanan(item.id)}
