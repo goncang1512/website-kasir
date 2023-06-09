@@ -264,32 +264,84 @@ export default function Dasbord() {
                 className="list-group list-categori"
                 style={{ listStyle: "none", gap: "20px" }}
               >
-                <li>
+                <li className={menuType === "appetizer" ? "aktif" : ""}>
                   <a
                     href="#appetizer"
-                    onClick={() => tekanMenuType("appetizer")}
+                    onClick={() => {
+                      tekanMenuType("appetizer");
+                    }}
                   >
-                    Appetizer
+                    <span
+                      style={{
+                        color: menuType === "appetizer" ? "white" : "inherit",
+                      }}
+                    >
+                      Appetizer
+                    </span>
                   </a>
                 </li>
-                <li>
-                  <a href="#main" onClick={() => tekanMenuType("main")}>
-                    Main Course
+                <li className={menuType === "main" ? "aktif" : ""}>
+                  <a
+                    href="#main"
+                    onClick={() => {
+                      tekanMenuType("main");
+                    }}
+                  >
+                    <span
+                      style={{
+                        color: menuType === "main" ? "white" : "inherit",
+                      }}
+                    >
+                      Main Course
+                    </span>
                   </a>
                 </li>
-                <li>
-                  <a href="#sea" onClick={() => tekanMenuType("sea")}>
-                    Seafood
+                <li className={menuType === "sea" ? "aktif" : ""}>
+                  <a
+                    href="#sea"
+                    onClick={() => {
+                      tekanMenuType("sea");
+                    }}
+                  >
+                    <span
+                      style={{
+                        color: menuType === "sea" ? "white" : "inherit",
+                      }}
+                    >
+                      Seafood
+                    </span>
                   </a>
                 </li>
-                <li>
-                  <a href="#dessert" onClick={() => tekanMenuType("dessert")}>
-                    Dessert
+                <li className={menuType === "dessert" ? "aktif" : ""}>
+                  <a
+                    href="#dessert"
+                    onClick={() => {
+                      tekanMenuType("dessert");
+                    }}
+                  >
+                    <span
+                      style={{
+                        color: menuType === "dessert" ? "white" : "inherit",
+                      }}
+                    >
+                      Dessert
+                    </span>
                   </a>
                 </li>
-                <li>
-                  <a href="#drink" onClick={() => tekanMenuType("fast")}>
-                    Fast Food
+                <li className={menuType === "fast" ? "aktif" : ""}>
+                  <a
+                    href="#fast"
+                    onClick={() => {
+                      tekanMenuType("fast");
+                    }}
+                  >
+                    <span
+                      style={{
+                        color: menuType === "fast" ? "white" : "inherit",
+                      }}
+                    >
+                      Fast Food
+                    </span>
                   </a>
                 </li>
               </ul>
@@ -335,7 +387,7 @@ export default function Dasbord() {
                       src={lunch.foto}
                       style={dasbordStyle.imgMenu}
                     />
-                    <Card.Body style={{ paddingTop: "112%" }}>
+                    <Card.Body style={{ paddingTop: "100%" }}>
                       <Card.Title>
                         {lunch.name} {lunch.kode}
                       </Card.Title>
