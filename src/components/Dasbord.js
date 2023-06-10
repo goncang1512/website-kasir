@@ -103,19 +103,42 @@ export default function Dasbord() {
     const existingItem = pesanan.find(
       (p) => p.id === item.id && p.pesan === pesan
     );
+
     if (existingItem) {
+      const updatedPesanan = pesanan.map((p) => {
+        if (p.id === item.id && p.pesan === pesan) {
+          return { ...p, jumlah: p.jumlah + 1 };
+        } else {
+          return p;
+        }
+      });
+      setPesanan(updatedPesanan);
+      return;
+    }
+
+    const existingItemWithSameId = pesanan.find((p) => p.id === item.id);
+
+    if (existingItemWithSameId) {
       const updatedPesanan = pesanan.map((p) =>
-        p.id === item.id && p.pesan === pesan
-          ? { ...p, jumlah: p.jumlah + 1 }
-          : p
+        p.id === item.id ? { ...p, jumlah: p.jumlah + 1 } : p
       );
       setPesanan(updatedPesanan);
-    } else {
-      setPesanan((prevPesanan) => [
-        ...prevPesanan,
-        { ...item, jumlah: 1, pesan },
-      ]);
+      return;
     }
+
+    const existingItemWithDifferentPesan = pesanan.find(
+      (p) => p.id === item.id && p.pesan !== pesan
+    );
+
+    const updatedPesanan = existingItemWithDifferentPesan
+      ? pesanan.map((p) =>
+          p.id === item.id && p.pesan !== pesan
+            ? p
+            : { ...p, jumlah: p.jumlah + 1 }
+        )
+      : [...pesanan, { ...item, jumlah: 1, pesan }];
+
+    setPesanan(updatedPesanan);
   };
 
   // hapus pesanan
@@ -257,15 +280,25 @@ export default function Dasbord() {
             <Button
               onClick={() => {
                 setShowDetail(false);
-                const updatedPesanan = pesanan.map((item) => {
-                  if (item.id === itemId) {
-                    return { ...item, pesan: inputText };
-                  }
-                  return item;
-                });
-                setPesanan(updatedPesanan);
+                const existingIndex = pesanan.findIndex(
+                  (item) => item.id === itemId
+                );
+                if (existingIndex !== -1) {
+                  const updatedPesanan = [...pesanan];
+                  updatedPesanan[existingIndex] = {
+                    ...updatedPesanan[existingIndex],
+                    pesan: inputText,
+                  };
+                  setPesanan(updatedPesanan);
+                } else {
+                  const newPesanan = [
+                    ...pesanan,
+                    { id: itemId, pesan: inputText },
+                  ];
+                  setPesanan(newPesanan);
+                }
 
-                setShowDetail(false);
+                setInputText("");
               }}
               className="button-pesanan"
             >
