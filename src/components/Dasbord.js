@@ -45,7 +45,6 @@ export default function Dasbord() {
       position: "absolute",
       transition: "0.5s all ease",
       marginTop: "47px",
-      cursor: "pointer",
     },
     bodyName: {
       backgroundColor: "#11A662",
@@ -99,15 +98,23 @@ export default function Dasbord() {
 
   // pesanan
   const [pesanan, setPesanan] = useState([]);
-  const tambahPesanan = (item) => {
-    const existingItem = pesanan.find((p) => p.id === item.id);
+  // tambah pesanan
+  const tambahPesanan = (item, pesan) => {
+    const existingItem = pesanan.find(
+      (p) => p.id === item.id && p.pesan === pesan
+    );
     if (existingItem) {
       const updatedPesanan = pesanan.map((p) =>
-        p.id === item.id ? { ...p, jumlah: p.jumlah + 1 } : p
+        p.id === item.id && p.pesan === pesan
+          ? { ...p, jumlah: p.jumlah + 1 }
+          : p
       );
       setPesanan(updatedPesanan);
     } else {
-      setPesanan((prevPesanan) => [...prevPesanan, { ...item, jumlah: 1 }]);
+      setPesanan((prevPesanan) => [
+        ...prevPesanan,
+        { ...item, jumlah: 1, pesan },
+      ]);
     }
   };
 
@@ -119,9 +126,11 @@ export default function Dasbord() {
     setPesanan(updatedPesanan.filter((item) => item.jumlah > 0));
   };
 
-  // Fungsi untuk menghapus semua pesanan
+  // hapus semua pesanan
   const hapusSemuaPesanan = () => {
-    setPesanan([]); // Mengatur state pesanan menjadi array kosong
+    if (pesanan.length > 0) {
+      setPesanan([]);
+    }
   };
 
   // jumlah pesanan
@@ -209,19 +218,6 @@ export default function Dasbord() {
       selectedItem = menuData[menuType].find((item) => item.id === itemId);
     }
 
-    const tambahPesanan = () => {
-      const pesananBaru = {
-        id: selectedItem.id,
-        name: selectedItem.name,
-        harga: selectedItem.harga,
-        jumlah: 1,
-        foto: selectedItem.foto,
-        pesan: inputPesanan.current.value,
-      };
-      setPesanan([...pesanan, pesananBaru]);
-      setShowDetail(false);
-    };
-
     return (
       <Modal
         show={showDetail && selectMenuId === itemId}
@@ -260,7 +256,6 @@ export default function Dasbord() {
             <Button
               onClick={() => {
                 setShowDetail(false);
-                tambahPesanan();
               }}
               className="button-pesanan"
             >
@@ -369,19 +364,10 @@ export default function Dasbord() {
                       <Card.Text>Rp. {lunch.harga.toLocaleString()} </Card.Text>
                       <div className="d-flex">
                         <button
-                          onClick={() => tambahPesanan(lunch)}
+                          onClick={() => tambahPesanan(lunch, "")}
                           className="button-card-first bg-primary text-white"
                         >
                           Tambah
-                        </button>
-                        <button
-                          className="button-card-second text-white"
-                          onClick={() => {
-                            setSelectMenuId(lunch.id);
-                            setShowDetail(true);
-                          }}
-                        >
-                          Detail
                         </button>
                       </div>
                     </Card.Body>
@@ -421,6 +407,11 @@ export default function Dasbord() {
                       top: "0",
                       left: "0",
                       position: "absolute",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      setSelectMenuId(item.id);
+                      setShowDetail(true);
                     }}
                   />
                   <Card.Body style={{ paddingTop: "90%" }}>

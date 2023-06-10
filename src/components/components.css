@@ -44,14 +44,7 @@
 }
 
 .button-card-first {
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
-
-.button-card-second {
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  background-color: #e67a00;
+  border-radius: 10px;
 }
 
 /* Left Container */
