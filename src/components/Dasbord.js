@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Container,
   Row,
@@ -200,6 +200,7 @@ export default function Dasbord() {
 
   const [showDetail, setShowDetail] = useState(false);
   const [selectMenuId, setSelectMenuId] = useState(null);
+  const inputPesanan = useRef(null);
 
   function detailItem(itemId) {
     let selectedItem = null;
@@ -208,12 +209,26 @@ export default function Dasbord() {
       selectedItem = menuData[menuType].find((item) => item.id === itemId);
     }
 
+    const tambahPesanan = () => {
+      const pesananBaru = {
+        id: selectedItem.id,
+        name: selectedItem.name,
+        harga: selectedItem.harga,
+        jumlah: 1,
+        foto: selectedItem.foto,
+        pesan: inputPesanan.current.value,
+      };
+      setPesanan([...pesanan, pesananBaru]);
+      setShowDetail(false);
+    };
+
     return (
       <Modal
         show={showDetail && selectMenuId === itemId}
         onHide={() => setShowDetail(false)}
         className="modal-alert"
         centered
+        key={selectedItem.id}
       >
         <Modal.Header closeButton>
           <Modal.Title>{selectedItem.name}</Modal.Title>
@@ -230,6 +245,7 @@ export default function Dasbord() {
           <p>{selectedItem.description}</p>
           <Modal.Footer>
             <input
+              ref={inputPesanan}
               className="input-pesanan"
               type="text"
               placeholder="masukkan pesan"
@@ -242,9 +258,11 @@ export default function Dasbord() {
             />
 
             <Button
-              onClick={() => setShowDetail(false)}
+              onClick={() => {
+                setShowDetail(false);
+                tambahPesanan();
+              }}
               className="button-pesanan"
-              type="submit"
             >
               Submit
             </Button>
@@ -336,6 +354,7 @@ export default function Dasbord() {
                       overflow: "hidden",
                       position: "relative",
                     }}
+                    key={lunch.id}
                   >
                     <Card.Body style={dasbordStyle.bodyName}>Kasir</Card.Body>
                     <Card.Img
@@ -412,7 +431,9 @@ export default function Dasbord() {
                     <Card.Text>
                       Jumlah: {hitungJumlahPesanan(item.id)}
                     </Card.Text>
-                    <p className="pesan-input"></p>
+                    {item.pesan && (
+                      <p className="pesan-input">Note: {item.pesan}</p>
+                    )}
                     <button
                       className="bg-danger"
                       onClick={() => hapusPesanan(item.id)}
