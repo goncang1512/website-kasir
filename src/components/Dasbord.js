@@ -209,7 +209,7 @@ export default function Dasbord() {
 
   const [showDetail, setShowDetail] = useState(false);
   const [selectMenuId, setSelectMenuId] = useState(null);
-  const inputPesanan = useRef(null);
+  const [inputText, setInputText] = useState("");
 
   function detailItem(itemId) {
     let selectedItem = null;
@@ -241,10 +241,11 @@ export default function Dasbord() {
           <p>{selectedItem.description}</p>
           <Modal.Footer>
             <input
-              ref={inputPesanan}
               className="input-pesanan"
               type="text"
               placeholder="masukkan pesan"
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
               style={{
                 padding: "5px 10px",
                 borderRadius: "6px",
@@ -255,6 +256,15 @@ export default function Dasbord() {
 
             <Button
               onClick={() => {
+                setShowDetail(false);
+                const updatedPesanan = pesanan.map((item) => {
+                  if (item.id === itemId) {
+                    return { ...item, pesan: inputText };
+                  }
+                  return item;
+                });
+                setPesanan(updatedPesanan);
+
                 setShowDetail(false);
               }}
               className="button-pesanan"
