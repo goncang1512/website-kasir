@@ -6,6 +6,8 @@ let dataBase = {
       name: "Salad Sayur",
       harga: 20000,
       foto: require("./img/images/salad.jpg"),
+      description:
+        "Daun Selada Hijau, Tomat Ceri, Mentimun, Wortel Parut, Potongan Daging Ayam Panggang, Kacang Almond Panggang, Dressing Lemon dan Zaitun.",
     },
     {
       id: 2,
@@ -13,6 +15,7 @@ let dataBase = {
       name: "Canape Salmon",
       harga: 15000,
       foto: require("./img/images/canapesalmon.jpg"),
+      description: "Roti Canape, Salmon Segar, Cream Cheese.",
     },
     {
       id: 3,
@@ -20,6 +23,7 @@ let dataBase = {
       name: "Strawberry Cocktail",
       harga: 13000,
       foto: require("./img/images/strawberrycocktail.jpg"),
+      description: "Strawbary, Jud Lemon, Gula, Es Batu, Soda, Daun Mints.",
     },
     {
       id: 4,
@@ -27,6 +31,8 @@ let dataBase = {
       name: "Bruschetta",
       harga: 15000,
       foto: require("./img/images/bruschetta.jpg"),
+      description:
+        "Roti Baguette, Tomat, Bawang Bombay, Daun Basil, Bawang Putih, Minyak Zaitun, Garam dan Merica.",
     },
     {
       id: 5,
@@ -34,6 +40,8 @@ let dataBase = {
       name: "Tomato Soup",
       harga: 10000,
       foto: require("./img/images/tomatosoup.jpg"),
+      description:
+        "Tomat Kalengan, Bawang Bombay, Bawang Putih, Kaldu Sayuran:, Gula, Mentega, Garam dan Merica, Remah Roti Panggang.",
     },
   ],
   mainCourse: [
@@ -43,6 +51,7 @@ let dataBase = {
       name: "Steak",
       harga: 7500,
       foto: require("./img/images/steak.jpg"),
+      description: "Potongan Daging, Garam dan Merica, Minyak, Bawang Putih.",
     },
     {
       id: 7,
@@ -50,6 +59,7 @@ let dataBase = {
       name: "Pasta",
       harga: 10000,
       foto: require("./img/images/pasta.jpg"),
+      description: "Pasta Kering, Air Garam,Saus.",
     },
     {
       id: 8,
@@ -57,6 +67,8 @@ let dataBase = {
       name: "Fresh Sushi",
       harga: 13000,
       foto: require("./img/images/sushi.jpg"),
+      description:
+        "Nasi Sushi, Ikan Segar, Sayuran, Nori, Wasabi, Kecap, Jahe.",
     },
     {
       id: 9,
@@ -64,6 +76,8 @@ let dataBase = {
       name: "Nachos",
       harga: 15000,
       foto: require("./img/images/nachos.jpg"),
+      description:
+        "Keripik Jagung, Daging Cincang, Kacang Hitam, Saus Tomat, Saus Guacamole, Saus Cream, Bawang Bombay.",
     },
   ],
   seaFood: [
@@ -73,6 +87,8 @@ let dataBase = {
       name: "Kerang Saus Tomat",
       harga: 12000,
       foto: require("./img/images/shellstomato.jpg"),
+      description:
+        "Kerang Segar, Bawang Putih, Saus Tomat, Cabai Merah, Daun Peterseli, Minyak Zaitun.",
     },
     {
       id: 11,
@@ -80,6 +96,8 @@ let dataBase = {
       name: "Udang Goreng",
       harga: 14000,
       foto: require("./img/images/tempurashrimps.jpg"),
+      description:
+        "Udang Segar, Tepung Terigu, Bumbu Rempah-rempah, Minyak Goreng, Saus Sambal.",
     },
     {
       id: 12,
@@ -87,6 +105,7 @@ let dataBase = {
       name: "Lobster",
       harga: 120000,
       foto: require("./img/images/lobster.jpg"),
+      description: "Lobster, Mentega, Bawang Putih, Lemon, Daun Peterseli.",
     },
     {
       id: 13,
@@ -94,6 +113,8 @@ let dataBase = {
       name: "Ikan Bakar",
       harga: 9000,
       foto: require("./img/images/roastedfish.jpg"),
+      description:
+        "Ikan Segar, Bumbu Marinasi, Bumbu Bakar, Minyak Goreng, Daun Pisang, Jeruk Nipis.",
     },
     {
       id: 14,
@@ -101,6 +122,8 @@ let dataBase = {
       name: "Sushi",
       harga: 11000,
       foto: require("./img/images/sushifresh.jpg"),
+      description:
+        "Nasi Sushi, Ikan Segar, Sayuran, Nori, Wasabi, Kecap, Jahe.",
     },
   ],
   dessertFood: [
@@ -110,6 +133,7 @@ let dataBase = {
       name: "Creme Brulee",
       harga: 12000,
       foto: require("./img/images/cremebrulee.jpg"),
+      description: "Krim Cair, Gula Pasir, Telur, Vanilla.",
     },
     {
       id: 11,
@@ -117,6 +141,7 @@ let dataBase = {
       name: "Puding",
       harga: 14000,
       foto: require("./img/images/puding.jpg"),
+      description: "Susu, Gula, Bahan Pengental, Coklat.",
     },
     {
       id: 12,
@@ -124,6 +149,7 @@ let dataBase = {
       name: "Ice Cream",
       harga: 120000,
       foto: require("./img/images/icecream.jpg"),
+      description: "Susu, Gula, Krim, Coklat, Vanilla, Telur, Topping.",
     },
     {
       id: 13,
@@ -131,6 +157,7 @@ let dataBase = {
       name: "Buah Segar",
       harga: 9000,
       foto: require("./img/images/freshfruit.jpg"),
+      description: "Semangka, Pisang, Jeruk, Anggur, Kiwi, Strawberry, Berry.",
     },
     {
       id: 14,
@@ -138,6 +165,8 @@ let dataBase = {
       name: "Kue Coklat",
       harga: 11000,
       foto: require("./img/images/kuecoklat.jpg"),
+      description:
+        "Coklat, Mentga, Telur, Tepung, Baking Powder, Ekstrak Vanilla, Garam.",
     },
   ],
   fastFood: [
@@ -147,6 +176,8 @@ let dataBase = {
       name: "Burger",
       harga: 20000,
       foto: require("./img/images/burger.jpg"),
+      description:
+        "Daging, Roti, Bumbu, Topping(saus sambel, saus tomat, keju, saus BBQ, mayones, acar).",
     },
     {
       id: "sajf873467hfdhfer87",
@@ -154,6 +185,7 @@ let dataBase = {
       name: "Ayam Goreng",
       harga: 15000,
       foto: require("./img/images/friedchicken.jpg"),
+      description: "Ayam, Bumbu Marinasi, Tepung, Minyak.",
     },
     {
       id: "fhasu48753459gdfhgwr",
@@ -161,6 +193,8 @@ let dataBase = {
       name: "Hot Dog",
       harga: 13000,
       foto: require("./img/images/hotdog.jpg"),
+      description:
+        "Sosis, Roti Hot Dog, Topping(saus tomat, saus sambel, saus BBQ, acar, bawang bombay).",
     },
     {
       id: "asdfha3w74245efge44ae",
@@ -168,6 +202,8 @@ let dataBase = {
       name: "Pizza",
       harga: 15000,
       foto: require("./img/images/pizza.jpg"),
+      description:
+        "Adonan Pizza, Saus Tomat, Keju, Saus dan Rempah rempah, Topping(sosis, daging, nans).",
     },
     {
       id: "afsuify87345rfwfhewr3",
@@ -175,6 +211,7 @@ let dataBase = {
       name: "Kentang Goreng",
       harga: 10000,
       foto: require("./img/images/potato.jpg"),
+      description: "",
     },
   ],
   imgCarousel: [

@@ -70,6 +70,33 @@ export default function Dasbord() {
     setMenuType(type);
   };
 
+  const menuTypes = [
+    { type: "appetizer", label: "Appetizer" },
+    { type: "main", label: "Main Course" },
+    { type: "sea", label: "Seafood" },
+    { type: "dessert", label: "Dessert" },
+    { type: "fast", label: "Fast Food" },
+  ];
+
+  const menuItems = menuTypes.map((menu) => (
+    <li className={menuType === menu.type ? "aktif" : ""} key={menu.type}>
+      <a
+        href={`#${menu.type}`}
+        onClick={() => {
+          tekanMenuType(menu.type);
+        }}
+      >
+        <span
+          style={{
+            color: menuType === menu.type ? "white" : "inherit",
+          }}
+        >
+          {menu.label}
+        </span>
+      </a>
+    </li>
+  ));
+
   // pesanan
   const [pesanan, setPesanan] = useState([]);
   const tambahPesanan = (item) => {
@@ -191,8 +218,16 @@ export default function Dasbord() {
         <Modal.Header closeButton>
           <Modal.Title>{selectedItem.name}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          Rp. {selectedItem.harga}
+        <Modal.Body className="d-flex flex-column">
+          <img
+            style={{ width: "100%", borderRadius: "5px" }}
+            src={selectedItem.foto}
+            alt=""
+          />
+          <p className="mt-3" style={{ fontSize: "16px" }}>
+            Rp. {selectedItem.harga}
+          </p>
+          <p>{selectedItem.description}</p>
           <Modal.Footer>
             <input
               className="input-pesanan"
@@ -264,86 +299,7 @@ export default function Dasbord() {
                 className="list-group list-categori"
                 style={{ listStyle: "none", gap: "20px" }}
               >
-                <li className={menuType === "appetizer" ? "aktif" : ""}>
-                  <a
-                    href="#appetizer"
-                    onClick={() => {
-                      tekanMenuType("appetizer");
-                    }}
-                  >
-                    <span
-                      style={{
-                        color: menuType === "appetizer" ? "white" : "inherit",
-                      }}
-                    >
-                      Appetizer
-                    </span>
-                  </a>
-                </li>
-                <li className={menuType === "main" ? "aktif" : ""}>
-                  <a
-                    href="#main"
-                    onClick={() => {
-                      tekanMenuType("main");
-                    }}
-                  >
-                    <span
-                      style={{
-                        color: menuType === "main" ? "white" : "inherit",
-                      }}
-                    >
-                      Main Course
-                    </span>
-                  </a>
-                </li>
-                <li className={menuType === "sea" ? "aktif" : ""}>
-                  <a
-                    href="#sea"
-                    onClick={() => {
-                      tekanMenuType("sea");
-                    }}
-                  >
-                    <span
-                      style={{
-                        color: menuType === "sea" ? "white" : "inherit",
-                      }}
-                    >
-                      Seafood
-                    </span>
-                  </a>
-                </li>
-                <li className={menuType === "dessert" ? "aktif" : ""}>
-                  <a
-                    href="#dessert"
-                    onClick={() => {
-                      tekanMenuType("dessert");
-                    }}
-                  >
-                    <span
-                      style={{
-                        color: menuType === "dessert" ? "white" : "inherit",
-                      }}
-                    >
-                      Dessert
-                    </span>
-                  </a>
-                </li>
-                <li className={menuType === "fast" ? "aktif" : ""}>
-                  <a
-                    href="#fast"
-                    onClick={() => {
-                      tekanMenuType("fast");
-                    }}
-                  >
-                    <span
-                      style={{
-                        color: menuType === "fast" ? "white" : "inherit",
-                      }}
-                    >
-                      Fast Food
-                    </span>
-                  </a>
-                </li>
+                {menuItems}
               </ul>
             </Card>
           </Col>
