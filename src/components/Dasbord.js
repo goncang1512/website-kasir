@@ -507,7 +507,7 @@ export default function Dasbord() {
                         }
                       }}
                     />
-                    <Card.Body style={{ paddingTop: "100%" }}>
+                    <Card.Body style={{ paddingTop: "70%" }}>
                       <Card.Title>{item.name}</Card.Title>
                       <Card.Text>
                         Rp{" "}
