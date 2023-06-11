@@ -55,6 +55,19 @@
   color: white;
 }
 
+.element-yang-ingin-diatur {
+  overflow: scroll;
+  scrollbar-width: none; /* Menghilangkan lebar tanda scroll */
+}
+
+.element-yang-ingin-diatur::-webkit-scrollbar {
+  display: none; /* Menghilangkan tanda scroll di peramban berbasis WebKit */
+}
+
+.img-item-pesanan:hover {
+  transform: scale(1.1);
+}
+
 @media screen and (max-width: 767px) {
   .tittle-produk {
     display: flex;

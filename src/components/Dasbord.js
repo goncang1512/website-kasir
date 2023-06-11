@@ -58,7 +58,15 @@ export default function Dasbord() {
       fontSize: "20px",
       display: "flex",
       alignItems: "center",
+      borderRadiusTopLeft: "5px",
+      borderRadiusTopRight: "5px",
     },
+  };
+
+  const imgPesanan = {
+    ...dasbordStyle.imgMenu,
+    cursor: "pointer",
+    transition: "0.3s all ease",
   };
 
   // halaman awal pada menu categori
@@ -199,8 +207,11 @@ export default function Dasbord() {
         </Modal.Header>
         <Modal.Body>
           <Alert variant="success">
-            Telah berhasil dibayar! Total bayar: Rp. {""}
-            {currentTotalHarga.toLocaleString()}
+            Telah berhasil dibayar! Total bayar: Rp {""}
+            {currentTotalHarga.toLocaleString("id-ID", {
+              styles: "currency",
+              currency: "IDR",
+            })}
           </Alert>
         </Modal.Body>
       </Modal>
@@ -231,17 +242,15 @@ export default function Dasbord() {
   }, []);
 
   const [showDetail, setShowDetail] = useState(false);
-  const [selectMenuId, setSelectMenuId] = useState(null);
+  const [selectMenuId, setSelectMenuId] = useState("");
   const [inputText, setInputText] = useState("");
 
   function detailItem(itemId) {
-    let selectedItem = null;
+    const selectedItems = Object.values(menuData).flatMap((items) =>
+      items.filter((item) => item.id === itemId)
+    );
 
-    if (menuType) {
-      selectedItem = menuData[menuType].find((item) => item.id === itemId);
-    }
-
-    return (
+    return selectedItems.map((selectedItem) => (
       <Modal
         show={showDetail && selectMenuId === itemId}
         onHide={() => setShowDetail(false)}
@@ -259,7 +268,11 @@ export default function Dasbord() {
             alt=""
           />
           <p className="mt-3" style={{ fontSize: "16px" }}>
-            Rp. {selectedItem.harga}
+            Rp {""}
+            {selectedItem.harga.toLocaleString("id-ID", {
+              styles: "currency",
+              currency: "IDR",
+            })}
           </p>
           <p>{selectedItem.description}</p>
           <Modal.Footer>
@@ -307,9 +320,8 @@ export default function Dasbord() {
           </Modal.Footer>
         </Modal.Body>
       </Modal>
-    );
+    ));
   }
-
   /* menu type */
   const menuData = {
     appetizer: dataMenu.appetizerFood,
@@ -404,7 +416,13 @@ export default function Dasbord() {
                       <Card.Title>
                         {lunch.name} {lunch.kode}
                       </Card.Title>
-                      <Card.Text>Rp. {lunch.harga.toLocaleString()} </Card.Text>
+                      <Card.Text>
+                        Rp {""}
+                        {lunch.harga.toLocaleString("id-ID", {
+                          styles: "currency",
+                          currency: "IDR",
+                        })}
+                      </Card.Text>
                       <div className="d-flex">
                         <button
                           onClick={() => tambahPesanan(lunch, "")}
@@ -440,56 +458,94 @@ export default function Dasbord() {
                 gap: "20px",
               }}
             >
-              {pesanan.map((item) => (
-                <Card key={item.id}>
-                  <Card.Img
-                    src={item.foto}
+              <Col
+                className="element-yang-ingin-diatur"
+                style={{
+                  border: "1px solid rgba(0, 0, 0, 0.168)",
+                  height: "90vh",
+                  maxHeight: "90vh",
+                  padding: "20px 20px",
+                  overflowY: "auto",
+                  borderRadius: "7px",
+                  width: "110%",
+                }}
+              >
+                {pesanan.map((item) => (
+                  <Card
+                    key={item.id}
                     style={{
-                      width: "100%",
-                      objectFit: "contain",
-                      top: "0",
-                      left: "0",
-                      position: "absolute",
-                      cursor: "pointer",
+                      marginTop: "10px",
+                      marginBottom: "20px",
+                      overflow: "hidden",
+                      width: "18rem",
                     }}
-                    onClick={() => {
-                      setSelectMenuId(item.id);
-                      setShowDetail(true);
-                    }}
-                  />
-                  <Card.Body style={{ paddingTop: "90%" }}>
-                    <Card.Title>{item.name}</Card.Title>
-                    <Card.Text>
-                      Rp. {(item.harga * item.jumlah).toLocaleString()}
-                    </Card.Text>
-                    <Card.Text>
-                      Jumlah: {hitungJumlahPesanan(item.id)}
-                    </Card.Text>
-                    {item.pesan && (
-                      <p className="pesan-input">Note: {item.pesan}</p>
-                    )}
-                    <button
-                      className="bg-danger"
-                      onClick={() => hapusPesanan(item.id)}
+                  >
+                    <Card.Body
                       style={{
-                        borderRadius: "7px",
-                        padding: "3px 5px",
+                        borderRadiusTopLeft: "7px",
+                        borderRadiusTopRight: "7px",
+                        zIndex: "2",
+                        backgroundColor: "#11A662",
                         color: "white",
-                        border: "none",
+                        fontSize: "16px",
                       }}
                     >
-                      Hapus
-                    </button>
-                  </Card.Body>
-                </Card>
-              ))}
+                      {item.categori}
+                    </Card.Body>
+                    <Card.Img
+                      src={item.foto}
+                      style={imgPesanan}
+                      className="img-item-pesanan"
+                      onClick={() => {
+                        setSelectMenuId(item.id);
+                        setShowDetail(true);
+                        const clickedMenu = menuTypes.find(
+                          (menu) => menu.label === item.categori
+                        );
+                        if (clickedMenu) {
+                          tekanMenuType(clickedMenu.type);
+                        }
+                      }}
+                    />
+                    <Card.Body style={{ paddingTop: "100%" }}>
+                      <Card.Title>{item.name}</Card.Title>
+                      <Card.Text>
+                        Rp{" "}
+                        {(item.harga * item.jumlah).toLocaleString("id-ID", {
+                          styles: "currency",
+                          currency: "IDR",
+                        })}
+                      </Card.Text>
+                      <Card.Text>
+                        Jumlah: {hitungJumlahPesanan(item.id)}
+                      </Card.Text>
+                      {item.pesan && (
+                        <p className="pesan-input">Note: {item.pesan}</p>
+                      )}
+                      <button
+                        className="bg-danger"
+                        onClick={() => hapusPesanan(item.id)}
+                        style={{
+                          borderRadius: "7px",
+                          padding: "3px 5px",
+                          color: "white",
+                          border: "none",
+                        }}
+                      >
+                        Hapus
+                      </button>
+                    </Card.Body>
+                  </Card>
+                ))}
+              </Col>
+
               {alertSukses()}
               <Card
                 className="bg-success"
                 style={{
                   padding: "10px",
                   fontSize: "20px",
-                  width: "100%",
+                  width: "18rem",
                   color: "white",
                   cursor: pesanan.length > 0 ? "pointer" : "default",
                 }}
@@ -497,12 +553,21 @@ export default function Dasbord() {
                   if (pesanan.length > 0) {
                     hapusSemuaPesanan();
                     setShowAlert(true);
-                    setCurrentTotalHarga(totalHarga.toLocaleString());
+                    setCurrentTotalHarga(
+                      totalHarga.toLocaleString("id-ID", {
+                        styles: "currency",
+                        currency: "IDR",
+                      })
+                    );
                   }
                 }}
                 disabled={pesanan.length === 0}
               >
-                Total Harga: Rp. {totalHarga.toLocaleString()}
+                Total Harga: Rp{" "}
+                {totalHarga.toLocaleString("id-ID", {
+                  styles: "currency",
+                  currency: "IDR",
+                })}
               </Card>
             </Row>
           </Col>
